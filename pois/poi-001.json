@@ -6,25 +6,13 @@
   "lat": null,
   "lng": null,
   "image": "",
-  "description": {
-    "text": "",
-    "audioText": "",
-    "audioFile": ""
-  },
-  "curiosities": {
-    "text": "",
-    "audioText": "",
-    "audioFile": ""
-  },
-  "children": {
-    "text": "",
-    "audioText": "",
-    "audioFile": ""
-  },
-  "audioSettings": {
-    "language": "it-IT",
-    "speed": 0.9
-  },
+  "description": "",
+  "audioText": "",
+  "audio": "",
+  "audioLanguage": "it-IT",
+  "audioSpeed": 0.9,
+  "curiosities": "",
+  "childrenText": "",
   "visitDuration": "",
   "notes": ""
 }
