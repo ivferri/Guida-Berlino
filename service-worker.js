@@ -1,9 +1,10 @@
-const CACHE_NAME = 'berlin-guida-v2-2';
+const CACHE_NAME = 'berlin-guida-v2-3';
 const APP_FILES = [
   './', './index.html', './manifest.json', './icon.svg', './css/style.css',
   './js/app.js', './js/map.js', './js/audio.js', './js/navigation.js',
   './data/itineraries.json', './data/day-1.json', './data/day-2.json',
-  './data/day-3.json', './data/day-4.json', './pois/poi-001.json'
+  './data/day-3.json', './data/day-4.json', './pois/poi-001.json',
+  './pois/poi-template.json'
 ];
 self.addEventListener('install', event => {
   event.waitUntil(caches.open(CACHE_NAME)

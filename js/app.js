@@ -39,13 +39,13 @@ function renderHome() {
 async function openDay(id) {
   const day = itineraryDays.find(item => Number(item.id) === Number(id));
   if (!day) return;
-  currentDay = day;
   stopGPS();
   stopPOIAudio();
   try {
     const response = await fetch(day.dataFile);
     if (!response.ok) throw new Error(`File itinerario non trovato: ${day.dataFile}`);
     const data = await response.json();
+    currentDay = day;
     currentPOIs = Array.isArray(data.pois)
       ? data.pois.filter(poi => poi && typeof poi === 'object' && !Array.isArray(poi))
       : [];
@@ -90,13 +90,60 @@ function openPOI(index) {
   document.getElementById('dayPage').hidden = true;
   document.getElementById('poiPage').hidden = false;
   document.getElementById('poiTitle').textContent = currentPOI.name || 'Tappa';
+
   const description = currentPOI.description;
-  const descriptionText = typeof description === 'string' ? description : (description && description.text) || '';
+  const descriptionText = typeof description === 'string'
+    ? description : (description && description.text) || '';
+  setOptionalText('poiCategory', currentPOI.category);
+  setOptionalText('poiDescription', descriptionText || currentPOI.shortDescription);
+  setOptionalText('poiVisitDuration', currentPOI.visitDuration);
+  setOptionalText('poiCuriosities', currentPOI.curiosities, true);
+  setOptionalText('poiChildrenText', currentPOI.childrenText, true);
+  setOptionalText('poiNotes', currentPOI.notes, true);
+  setPOIImage(currentPOI.image);
+
   const audioFile = currentPOI.audio || currentPOI.audioFile || (description && description.audioFile);
-  document.getElementById('poiDescription').textContent = descriptionText || currentPOI.shortDescription || '';
   document.getElementById('playRecordingButton').hidden = !(typeof audioFile === 'string' && audioFile.trim());
+  const audioText = currentPOI.audioText || (description && description.audioText) || descriptionText;
+  document.getElementById('playTextButton').hidden = !(typeof audioText === 'string' && audioText.trim());
   document.getElementById('audioStatus').textContent = 'Audioguida pronta';
   window.scrollTo(0, 0);
+}
+
+function setOptionalText(id, value, section = false) {
+  const element = document.getElementById(id);
+  if (!element) return;
+  const text = typeof value === 'string' ? value.trim() : '';
+  element.textContent = text;
+  if (section) {
+    const wrapper = document.getElementById(id + 'Section');
+    if (wrapper) wrapper.hidden = !text;
+  } else {
+    element.hidden = !text;
+  }
+}
+
+function setPOIImage(value) {
+  const container = document.getElementById('poiImageSection');
+  const image = document.getElementById('poiImage');
+  if (!container || !image) return;
+  const source = typeof value === 'string' ? value.trim() : '';
+  if (!source) {
+    image.removeAttribute('src');
+    container.hidden = true;
+    return;
+  }
+  try {
+    const url = new URL(source, document.baseURI);
+    if (!['http:', 'https:'].includes(url.protocol)) throw new Error('Protocollo immagine non consentito');
+    image.src = url.href;
+    image.alt = currentPOI.name ? `Immagine di ${currentPOI.name}` : 'Immagine della tappa';
+    container.hidden = false;
+    image.onerror = () => { container.hidden = true; };
+  } catch (error) {
+    console.warn('Percorso immagine POI non valido:', source);
+    container.hidden = true;
+  }
 }
 
 function showHome() {

@@ -39,11 +39,28 @@
     <section id="poiPage" hidden>
       <button type="button" class="secondary-button" onclick="backToDay()">← Torna all'itinerario</button>
       <h2 id="poiTitle"></h2>
-      <p id="poiDescription"></p>
+      <p id="poiCategory" class="poi-category" hidden></p>
+      <figure id="poiImageSection" class="poi-image-section" hidden>
+        <img id="poiImage" alt="">
+      </figure>
+      <p id="poiDescription" class="poi-description" hidden></p>
+      <p id="poiVisitDuration" class="poi-meta" hidden></p>
+      <section id="poiCuriositiesSection" class="poi-info-section" hidden>
+        <h3>Curiosità</h3>
+        <p id="poiCuriosities"></p>
+      </section>
+      <section id="poiChildrenTextSection" class="poi-info-section" hidden>
+        <h3>Da raccontare ai più piccoli</h3>
+        <p id="poiChildrenText"></p>
+      </section>
+      <section id="poiNotesSection" class="poi-info-section" hidden>
+        <h3>Informazioni e note</h3>
+        <p id="poiNotes"></p>
+      </section>
       <section class="audio-panel">
         <h3>Audioguida</h3>
-        <button type="button" onclick="playPOIText()">▶ Leggi il testo</button>
-        <button type="button" onclick="playPOIRecording()" id="playRecordingButton">▶ Ascolta la registrazione</button>
+        <button type="button" id="playTextButton" onclick="playPOIText()">▶ Leggi il testo</button>
+        <button type="button" onclick="playPOIRecording()" id="playRecordingButton" hidden>▶ Ascolta la registrazione</button>
         <button type="button" class="secondary-button" onclick="pausePOIAudio()">Pausa</button>
         <button type="button" class="secondary-button" onclick="resumePOIAudio()">Riprendi</button>
         <button type="button" class="secondary-button" onclick="stopPOIAudio()">■ Ferma</button>
