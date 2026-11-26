@@ -21,7 +21,7 @@ async function loadItineraries() {
 
 function renderHome() {
   const container = document.getElementById('days');
-  const enabledDays = itineraryDays.filter(day => day.enabled !== false);
+  const enabledDays = itineraryDays.filter(day => day && day.enabled !== false);
   if (!enabledDays.length) {
     container.innerHTML = '<p class="empty-state">Gli itinerari non sono ancora disponibili.</p>';
     return;
@@ -46,7 +46,12 @@ async function openDay(id) {
     const response = await fetch(day.dataFile);
     if (!response.ok) throw new Error(`File itinerario non trovato: ${day.dataFile}`);
     const data = await response.json();
-    currentPOIs = Array.isArray(data.pois) ? data.pois : [];
+    currentPOIs = Array.isArray(data.pois)
+      ? data.pois.filter(poi => poi && typeof poi === 'object' && !Array.isArray(poi))
+      : [];
+    if (Array.isArray(data.pois) && currentPOIs.length !== data.pois.length) {
+      console.warn('Alcune tappe non valide sono state ignorate:', day.dataFile);
+    }
     document.getElementById('home').hidden = true;
     document.getElementById('poiPage').hidden = true;
     document.getElementById('dayPage').hidden = false;
@@ -87,8 +92,9 @@ function openPOI(index) {
   document.getElementById('poiTitle').textContent = currentPOI.name || 'Tappa';
   const description = currentPOI.description;
   const descriptionText = typeof description === 'string' ? description : (description && description.text) || '';
+  const audioFile = currentPOI.audio || currentPOI.audioFile || (description && description.audioFile);
   document.getElementById('poiDescription').textContent = descriptionText || currentPOI.shortDescription || '';
-  document.getElementById('playRecordingButton').hidden = !(currentPOI.audio || currentPOI.audioFile || (description && description.audioFile));
+  document.getElementById('playRecordingButton').hidden = !(typeof audioFile === 'string' && audioFile.trim());
   document.getElementById('audioStatus').textContent = 'Audioguida pronta';
   window.scrollTo(0, 0);
 }
