@@ -55,7 +55,14 @@
       <p>Una giornata tra storia, cortili segreti, mercati e la Spree.</p>
       <p>Seleziona una tappa per iniziare ad esplorare.</p>
     </section>
-    <div id="stops"></div>
+    <section class="intro">
+  <h2>🗺️ La mappa di Berlino</h2>
+  <p>Esplora le tappe della giornata e scopri dove ti trovi.</p>
+  <button onclick="locateMe()">📍 Dove mi trovo?</button>
+  <div id="map" style="height:400px; margin-top:15px; border-radius:12px;"></div>
+  <p id="gpsStatus">Premi il pulsante per individuare la tua posizione.</p>
+</section>
+<div id="stops"></div>
     <section class="intro" id="reader" hidden>
       <div class="tag">LA TUA AUDIOGUIDA</div>
       <h2 id="storyTitle"></h2>
