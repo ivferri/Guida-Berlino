@@ -1,5 +1,5 @@
 
-const CACHE_NAME = "berlin-guida-v1";
+const CACHE_NAME = "berlin-guida-v2";
 
 const FILES = [
   "./",
