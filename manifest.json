@@ -1,0 +1,21 @@
+
+{
+  "name": "BERLIN - La città raccontata",
+  "short_name": "BERLIN",
+  "description": "Guida turistica interattiva di Berlino",
+  "lang": "it",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f4f1eb",
+  "theme_color": "#172b35",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
