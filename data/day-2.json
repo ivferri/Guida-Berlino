@@ -1,0 +1,36 @@
+{
+  "id": 2,
+  "date": "03 gennaio",
+  "title": "",
+  "subtitle": "",
+  "description": "",
+  "coverImage": "",
+  "map": {
+    "centerLat": 52.5200,
+    "centerLng": 13.4050,
+    "zoom": 13
+  },
+  "pois": [
+    {
+      "id": "",
+      "order": 1,
+      "name": "",
+      "category": "",
+      "shortDescription": "",
+      "description": "",
+      "lat": null,
+      "lng": null,
+      "image": "",
+      "audioText": "",
+      "audioLanguage": "it-IT",
+      "audioSpeed": 0.9,
+      "audio": "",
+      "curiosities": "",
+      "curiositiesAudio": "",
+      "childrenSection": "",
+      "childrenAudio": "",
+      "visitDuration": "",
+      "notes": ""
+    }
+  ]
+}
