@@ -8,6 +8,8 @@
   <link rel="manifest" href="manifest.json">
   <meta name="description" content="La tua guida turistica di Berlino">
   <title>BERLIN – La città raccontata</title>
+  <link rel="stylesheet"
+ href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
   <style>
     #map {
   width: 100%;
@@ -76,7 +78,8 @@
     </section>
   </main>
   <footer>BERLIN · La tua guida personale</footer>
-
+  
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script>
     const stops = [
       "Gendarmenmarkt",
@@ -131,7 +134,71 @@
       speechSynthesis.speak(speech);
     }
   </script>
+
   
+<script>
+const berlinMap = L.map("map").setView([52.5105, 13.4150], 13);
+
+L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+  attribution: '&copy; OpenStreetMap contributors',
+  maxZoom: 19
+}).addTo(berlinMap);
+
+const places = [
+  ["Gendarmenmarkt", 52.5138, 13.3928],
+  ["Bebelplatz", 52.5174, 13.3932],
+  ["Unter den Linden", 52.5170, 13.3995],
+  ["Hackesche Höfe", 52.5245, 13.4021],
+  ["Haus Schwarzenberg", 52.5250, 13.4023],
+  ["Markthalle Neun", 52.5026, 13.4301],
+  ["Boxhagener Platz", 52.5117, 13.4618],
+  ["Oberbaumbrücke", 52.5015, 13.4410],
+  ["Holzmarkt 25", 52.5100, 13.4290]
+];
+
+places.forEach(([name, lat, lng]) => {
+  L.marker([lat, lng])
+    .addTo(berlinMap)
+    .bindPopup(
+      `<b>${name}</b><br><button onclick="showStory('${name}')">Leggi la storia</button>`
+    );
+});
+
+let userMarker;
+
+function locateMe() {
+  const status = document.getElementById("gpsStatus");
+
+  if (!navigator.geolocation) {
+    status.textContent = "GPS non disponibile sul dispositivo.";
+    return;
+  }
+
+  status.textContent = "Ricerca della posizione in corso...";
+
+  navigator.geolocation.getCurrentPosition(
+    position => {
+      const lat = position.coords.latitude;
+      const lng = position.coords.longitude;
+
+      if (userMarker) berlinMap.removeLayer(userMarker);
+
+      userMarker = L.marker([lat, lng])
+        .addTo(berlinMap)
+        .bindPopup("Sei qui!")
+        .openPopup();
+
+      berlinMap.setView([lat, lng], 16);
+      status.textContent = "Posizione individuata!";
+    },
+    error => {
+      status.textContent =
+        "Non riesco a ottenere la posizione. Controlla i permessi GPS.";
+    },
+    { enableHighAccuracy: true, timeout: 15000 }
+  );
+}
+</script>
   <script>
     if ("serviceWorker" in navigator) {
       window.addEventListener("load", () => {
