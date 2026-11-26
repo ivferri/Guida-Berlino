@@ -1,49 +1,20 @@
-:root {
-  --navy: #172b35; --teal: #244d55; --gold: #b58a52;
-  --paper: #f4f1eb; --white: #ffffff; --text: #24343b;
-  --muted: #718087; --border: #e9e5dc;
+/* V2 - dettagli delle schede POI */
+
+.poi-category {
+  display: inline-block; margin: 0 0 10px; padding: 5px 10px;
+  border-radius: 20px; background: #e7e1d6; color: var(--teal);
+  font-size: 13px; font-weight: bold;
 }
-* { box-sizing: border-box; }
-[hidden] { display: none !important; }
-body { margin: 0; font-family: Arial, sans-serif; background: var(--paper); color: var(--text); }
-header { background: var(--navy); color: white; padding: 30px 22px 36px; }
-header h1 { margin: 0; letter-spacing: 4px; font-size: 30px; }
-header p { color: #d6e0df; line-height: 1.5; margin-bottom: 0; }
-main { max-width: 760px; margin: auto; padding: 20px; }
-h2, h3 { color: var(--navy); }
-h2 { margin-top: 12px; }
-p { line-height: 1.55; }
-button { font: inherit; }
-.day-card {
-  display: flex; flex-direction: column; width: 100%; text-align: left;
-  background: white; padding: 20px; margin: 14px 0; border-radius: 15px;
-  color: var(--text); box-shadow: 0 3px 12px #0000000b;
-  border: 1px solid var(--border); cursor: pointer;
+.poi-image-section { margin: 12px 0 18px; }
+.poi-image-section img {
+  display: block; width: 100%; max-height: 360px; object-fit: cover;
+  border-radius: 14px;
 }
-.day-card:active { transform: scale(.99); }
-.day-date { color: var(--gold); font-weight: bold; font-size: 12px; letter-spacing: 1px; }
-.day-card-title { margin: 10px 0 6px; font-weight: bold; font-size: 18px; }
-.day-card-description { color: var(--muted); line-height: 1.5; }
-.day-card-link { margin-top: 12px; color: var(--gold); font-weight: bold; }
-button:not(.day-card) {
-  background: var(--teal); color: white; border: 0; border-radius: 9px;
-  padding: 11px 16px; margin: 4px 5px 4px 0; cursor: pointer;
-}
-button:not(.day-card):hover { filter: brightness(1.08); }
-button.secondary-button { background: #e5e1d8; color: var(--navy); }
-#map { width: 100%; height: 380px; border-radius: 14px; z-index: 1; background: #e5e1d8; }
-.gps-controls, .audio-panel, .navigation-panel {
-  margin-top: 14px; padding: 16px; background: white;
+.poi-description { white-space: pre-line; }
+.poi-meta { color: var(--muted); font-size: 14px; font-weight: bold; }
+.poi-info-section {
+  margin: 14px 0; padding: 16px; background: white;
   border: 1px solid var(--border); border-radius: 14px;
 }
-.gps-controls p, #audioStatus { color: var(--muted); font-size: 14px; margin-bottom: 0; }
-.empty-state {
-  background: white; border: 1px dashed #c9c1b4; border-radius: 14px;
-  padding: 18px; color: var(--muted);
-}
-.poi-card button { align-self: flex-start; margin-top: 14px; }
-footer { text-align: center; padding: 25px; color: var(--muted); font-size: 13px; }
-@media (max-width: 480px) {
-  main { padding: 16px; } header { padding: 26px 18px 30px; }
-  #map { height: 340px; }
-}
+.poi-info-section h3 { margin-top: 0; }
+.poi-info-section p { margin-bottom: 0; white-space: pre-line; }
