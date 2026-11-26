@@ -98,6 +98,7 @@ function openPOI(index) {
   setOptionalText('poiDescription', descriptionText || currentPOI.shortDescription);
   setOptionalText('poiVisitDuration', currentPOI.visitDuration);
   setOptionalText('poiCuriosities', currentPOI.curiosities, true);
+  setOptionalText('poiChildrenCuriosity', currentPOI.childrenCuriosity, true);
   setOptionalText('poiChildrenText', currentPOI.childrenText, true);
   setOptionalText('poiNotes', currentPOI.notes, true);
   setPOIImage(currentPOI.image);
