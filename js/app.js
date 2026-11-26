@@ -96,7 +96,7 @@ function openPOI(index) {
     ? description : (description && description.text) || '';
   setOptionalText('poiCategory', currentPOI.category);
   setOptionalText('poiDescription', descriptionText || currentPOI.shortDescription);
-  setOptionalText('poiVisitDuration', currentPOI.visitDuration, true);
+  setOptionalText('poiVisitDuration', currentPOI.visitDuration);
   setOptionalText('poiCuriosities', currentPOI.curiosities, true);
   setOptionalText('poiChildrenText', currentPOI.childrenText, true);
   setOptionalText('poiNotes', currentPOI.notes, true);
