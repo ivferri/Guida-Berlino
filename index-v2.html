@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#172b35">
+<meta name="description" content="BERLIN - La tua guida personale">
+<title>BERLIN – La città raccontata</title>
+<link rel="manifest" href="manifest.json">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+</head>
+
+<body>
+
+<header>
+  <h1>BERLIN</h1>
+  <p>Quattro giorni, mille storie da vivere.</p>
+</header>
+
+<main id="app">
+
+<section id="home">
+  <h2>I tuoi itinerari</h2>
+  <p>Seleziona la giornata che vuoi esplorare.</p>
+  <div id="days"></div>
+</section>
+
+<section id="dayPage" hidden>
+  <button onclick="showHome()">← Tutti gli itinerari</button>
+  <h2 id="dayTitle"></h2>
+  <p id="dayDescription"></p>
+
+  <h3>Mappa dell'itinerario</h3>
+  <div id="map" style="height:380px;border-radius:14px;"></div>
+
+  <div style="margin-top:12px">
+    <button onclick="startGPS()">📍 Attiva GPS</button>
+    <button onclick="stopGPS()">Ferma GPS</button>
+    <p id="gpsStatus">GPS non attivo</p>
+  </div>
+
+  <h3>Le tappe del giorno</h3>
+  <div id="poiList"></div>
+</section>
+
+<section id="poiPage" hidden>
+  <button onclick="backToDay()">← Torna all'itinerario</button>
+  <h2 id="poiTitle"></h2>
+  <p id="poiDescription"></p>
+
+  <h3>Audioguida</h3>
+  <button onclick="speakStory()">▶ Ascolta</button>
+  <button onclick="stopStory()">■ Ferma</button>
+
+  <h3>Come raggiungerlo</h3>
+  <button onclick="navigateGoogle()">Google Maps</button>
+  <button onclick="navigateLocus()">Locus Map</button>
+</section>
+
+</main>
+
+<footer>BERLIN · La tua guida personale</footer>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="js/app.js"></script>
+<script src="js/map.js"></script>
+</body>
+</html>
