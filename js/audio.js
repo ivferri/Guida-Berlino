@@ -3,7 +3,6 @@ const BerlinAudio = {
   player: new Audio(),
   currentMode: null,
   currentUtterance: null,
-
   readText(text, language = 'it-IT', speed = 0.9) {
     this.stop();
     if (!text || !String(text).trim()) {
@@ -21,14 +20,11 @@ const BerlinAudio = {
     utterance.onstart = () => this.updateStatus('Lettura in corso');
     utterance.onend = () => this.updateStatus('Lettura completata');
     utterance.onerror = event => {
-      if (event.error !== 'canceled' && event.error !== 'interrupted') {
-        this.updateStatus('Errore durante la lettura');
-      }
+      if (event.error !== 'canceled' && event.error !== 'interrupted') this.updateStatus('Errore durante la lettura');
     };
     this.currentUtterance = utterance;
     window.speechSynthesis.speak(utterance);
   },
-
   pauseText() {
     if (this.currentMode === 'text') {
       window.speechSynthesis.pause();
@@ -41,7 +37,6 @@ const BerlinAudio = {
       this.updateStatus('Lettura in corso');
     } else if (this.currentMode === 'file') this.resumeFile();
   },
-
   async playFile(file) {
     if (!file) {
       this.updateStatus('Registrazione non disponibile');
@@ -64,12 +59,10 @@ const BerlinAudio = {
     this.updateStatus('Audio in pausa');
   },
   resumeFile() {
-    this.player.play()
-      .then(() => this.updateStatus('Riproduzione audio in corso'))
-      .catch(error => {
-        this.updateStatus('Impossibile riprendere la riproduzione');
-        console.error(error);
-      });
+    this.player.play().then(() => this.updateStatus('Riproduzione audio in corso')).catch(error => {
+      this.updateStatus('Impossibile riprendere la riproduzione');
+      console.error(error);
+    });
   },
   stop() {
     if ('speechSynthesis' in window) window.speechSynthesis.cancel();
@@ -85,19 +78,19 @@ const BerlinAudio = {
     if (element) element.textContent = message;
   }
 };
-
 function playPOIText() {
   if (!currentPOI) return;
-  const text = currentPOI.audioText || currentPOI.description ||
-    (currentPOI.description && currentPOI.description.text) || '';
+  const description = currentPOI.description;
+  const descriptionText = typeof description === 'string' ? description : (description && description.text) || '';
+  const text = currentPOI.audioText || (description && description.audioText) || descriptionText;
   const settings = currentPOI.audioSettings || {};
   BerlinAudio.readText(text, currentPOI.audioLanguage || settings.language || 'it-IT',
     Number(currentPOI.audioSpeed ?? settings.speed ?? 0.9));
 }
 function playPOIRecording() {
   if (!currentPOI) return;
-  BerlinAudio.playFile(currentPOI.audio || currentPOI.audioFile ||
-    (currentPOI.description && currentPOI.description.audioFile));
+  const description = currentPOI.description;
+  BerlinAudio.playFile(currentPOI.audio || currentPOI.audioFile || (description && description.audioFile));
 }
 function pausePOIAudio() { BerlinAudio.pauseText(); }
 function resumePOIAudio() { BerlinAudio.resumeText(); }

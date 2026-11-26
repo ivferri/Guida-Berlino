@@ -85,8 +85,10 @@ function openPOI(index) {
   document.getElementById('dayPage').hidden = true;
   document.getElementById('poiPage').hidden = false;
   document.getElementById('poiTitle').textContent = currentPOI.name || 'Tappa';
-  document.getElementById('poiDescription').textContent = currentPOI.description || currentPOI.shortDescription || '';
-  document.getElementById('playRecordingButton').hidden = !currentPOI.audio;
+  const description = currentPOI.description;
+  const descriptionText = typeof description === 'string' ? description : (description && description.text) || '';
+  document.getElementById('poiDescription').textContent = descriptionText || currentPOI.shortDescription || '';
+  document.getElementById('playRecordingButton').hidden = !(currentPOI.audio || currentPOI.audioFile || (description && description.audioFile));
   document.getElementById('audioStatus').textContent = 'Audioguida pronta';
   window.scrollTo(0, 0);
 }
