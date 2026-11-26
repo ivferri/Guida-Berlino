@@ -1,0 +1,244 @@
+
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#172b35"> 
+  <link rel="manifest" href="manifest.json">
+  <meta name="description" content="La tua guida turistica di Berlino">
+  <title>BERLIN – La città raccontata</title>
+  <link rel="stylesheet"
+ href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <style>
+    #map {
+  width: 100%;
+  z-index: 1;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f4f1eb;
+      color: #24343b;
+    }
+    header {
+      background: #172b35;
+      color: white;
+      padding: 28px 20px;
+    }
+    header h1 { margin: 0; letter-spacing: 3px; }
+    header p { margin-bottom: 0; color: #d6e0df; }
+    main { padding: 18px; max-width: 720px; margin: auto; }
+    .intro, .stop {
+      background: white;
+      border-radius: 14px;
+      padding: 18px;
+      margin-bottom: 14px;
+      box-shadow: 0 2px 8px #0000000d;
+    }
+    .stop button {
+      background: #244d55;
+      color: white;
+      border: 0;
+      border-radius: 9px;
+      padding: 11px 16px;
+      cursor: pointer;
+    }
+    .tag { color: #9a7043; font-size: 13px; }
+    #story { line-height: 1.7; white-space: pre-line; }
+    footer { text-align: center; padding: 24px; color: #68777a; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>BERLIN</h1>
+    <p>La città raccontata · 2 gennaio 2027</p>
+  </header>
+  <main>
+    <section class="intro">
+      <h2>Benvenuti a Berlino!</h2>
+      <p>Una giornata tra storia, cortili segreti, mercati e la Spree.</p>
+      <p>Seleziona una tappa per iniziare ad esplorare.</p>
+    </section>
+    <section class="intro">
+  <h2>🗺️ La mappa di Berlino</h2>
+  <p>Esplora le tappe della giornata e scopri dove ti trovi.</p>
+  <button onclick="locateMe()">📍 Dove mi trovo?</button>
+  <div id="map" style="height:400px; margin-top:15px; border-radius:12px;"></div>
+  <p id="gpsStatus">Premi il pulsante per individuare la tua posizione.</p>
+</section>
+<div id="stops"></div>
+    <section class="intro" id="reader" hidden>
+      <div class="tag">LA TUA AUDIOGUIDA</div>
+      <h2 id="storyTitle"></h2>
+      <p id="story"></p>
+      <button onclick="speakStory()">Ascolta il racconto</button>
+      <button onclick="speechSynthesis.cancel()">Ferma</button>
+    </section>
+  </main>
+  <footer>BERLIN · La tua guida personale</footer>
+  
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script>
+    const stops = [
+      "Gendarmenmarkt",
+      "Bebelplatz",
+      "Unter den Linden",
+      "Hackesche Höfe",
+      "Haus Schwarzenberg",
+      "Markthalle Neun",
+      "Boxhagener Platz",
+      "Oberbaumbrücke",
+      "Holzmarkt 25"
+    ];
+
+    const descriptions = {
+      "Gendarmenmarkt": "La piazza delle due comunità. Qui la storia degli ugonotti francesi, della comunità tedesca e della Prussia si incontra nell'architettura delle due chiese e della Konzerthaus.",
+      "Bebelplatz": "Il 10 maggio 1933 qui vennero bruciati migliaia di libri. Il memoriale della biblioteca vuota ricorda la censura e la persecuzione culturale del nazismo.",
+      "Unter den Linden": "Il grande viale dei tigli racconta la trasformazione di Berlino da residenza reale a capitale prussiana, imperiale e moderna.",
+      "Hackesche Höfe": "Otto cortili comunicanti raccontano la Berlino commerciale e residenziale del primo Novecento. Osserva le decorazioni Jugendstil.",
+      "Haus Schwarzenberg": "In questo edificio Otto Weidt cercò di proteggere i suoi lavoratori ebrei durante il nazismo. Oggi ospita un museo dedicato alla sua storia.",
+      "Markthalle Neun": "Inaugurato nel 1891, questo mercato coperto nacque per rifornire le famiglie operaie di Kreuzberg.",
+      "Boxhagener Platz": "Una piazza di quartiere che racconta la Berlino operaia e la trasformazione di Friedrichshain.",
+      "Oberbaumbrücke": "Un tempo confine tra Berlino Est e Ovest, oggi è uno dei simboli della città riunificata.",
+      "Holzmarkt 25": "Un progetto creativo nato dalla trasformazione della riva della Spree, tra cultura indipendente e rigenerazione urbana."
+    };
+
+    const container = document.getElementById("stops");
+
+    stops.forEach((name, index) => {
+      const section = document.createElement("section");
+      section.className = "stop";
+      const title = document.createElement("h3");
+      title.textContent = `${index + 1}. ${name}`;
+      const button = document.createElement("button");
+      button.textContent = "Scopri la storia";
+      button.onclick = () => showStory(name);
+      section.append(title, button);
+      container.append(section);
+    });
+
+    function showStory(name) {
+      document.getElementById("reader").hidden = false;
+      document.getElementById("storyTitle").textContent = name;
+      document.getElementById("story").textContent = descriptions[name];
+      speechSynthesis.cancel();
+      document.getElementById("reader").scrollIntoView({behavior:"smooth"});
+    }
+
+    function speakStory() {
+      const text = document.getElementById("story").textContent;
+      const speech = new SpeechSynthesisUtterance(text);
+      speech.lang = "it-IT";
+      speechSynthesis.speak(speech);
+    }
+  </script>
+
+  
+
+<script>
+let berlinMap = null;
+let userMarker = null;
+
+function initializeBerlinMap() {
+  const mapElement = document.getElementById("map");
+
+  if (!mapElement || typeof L === "undefined") {
+    document.getElementById("gpsStatus").textContent =
+      "Errore nel caricamento della cartografia. Controlla Internet.";
+    return;
+  }
+
+  try {
+    berlinMap = L.map("map").setView([52.5105, 13.4150], 13);
+
+    L.tileLayer(
+      "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+      {
+        attribution: '&copy; OpenStreetMap contributors',
+        maxZoom: 19
+      }
+    ).addTo(berlinMap);
+
+    const places = [
+      ["Gendarmenmarkt", 52.5138, 13.3928],
+      ["Bebelplatz", 52.5174, 13.3932],
+      ["Unter den Linden", 52.5170, 13.3995],
+      ["Hackesche Höfe", 52.5245, 13.4021],
+      ["Haus Schwarzenberg", 52.5250, 13.4023],
+      ["Markthalle Neun", 52.5026, 13.4301],
+      ["Boxhagener Platz", 52.5117, 13.4618],
+      ["Oberbaumbrücke", 52.5015, 13.4410],
+      ["Holzmarkt 25", 52.5100, 13.4290]
+    ];
+
+    places.forEach(([name, lat, lng]) => {
+      L.marker([lat, lng])
+        .addTo(berlinMap)
+        .bindPopup("<b>" + name + "</b>");
+    });
+
+    document.getElementById("gpsStatus").textContent =
+      "Mappa caricata! Puoi esplorare le nove tappe.";
+
+    setTimeout(() => berlinMap.invalidateSize(), 300);
+
+  } catch (error) {
+    document.getElementById("gpsStatus").textContent =
+      "Errore nella mappa: " + error.message;
+  }
+}
+
+function locateMe() {
+  const status = document.getElementById("gpsStatus");
+
+  if (!berlinMap) {
+    status.textContent = "La mappa non è ancora pronta.";
+    return;
+  }
+
+  if (!navigator.geolocation) {
+    status.textContent = "GPS non disponibile.";
+    return;
+  }
+
+  status.textContent = "Ricerca della posizione...";
+
+  navigator.geolocation.getCurrentPosition(
+    position => {
+      const lat = position.coords.latitude;
+      const lng = position.coords.longitude;
+
+      if (userMarker) berlinMap.removeLayer(userMarker);
+
+      userMarker = L.marker([lat, lng])
+        .addTo(berlinMap)
+        .bindPopup("Ti trovi qui!")
+        .openPopup();
+
+      berlinMap.setView([lat, lng], 16);
+      status.textContent = "Posizione individuata!";
+    },
+    error => {
+      status.textContent = "GPS non disponibile: autorizza l'accesso alla posizione.";
+    },
+    { enableHighAccuracy: true, timeout: 15000 }
+  );
+}
+
+window.addEventListener("load", initializeBerlinMap);
+</script>
+
+  <script>
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker.register("./service-worker.js")
+          .then(() => console.log("BERLIN: modalità offline attivata"))
+          .catch(error => console.error("Errore offline:", error));
+      });
+    }
+  </script>
+
+</body>
+</html>
