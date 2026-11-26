@@ -1,0 +1,13 @@
+{
+  "id": 4,
+  "date": "05 gennaio",
+  "title": "",
+  "subtitle": "",
+  "coverImage": "",
+  "map": {
+    "centerLat": 52.5200,
+    "centerLng": 13.4050,
+    "zoom": 13
+  },
+  "pois": []
+}
