@@ -1,0 +1,47 @@
+{
+  "appName": "BERLIN",
+  "version": "2.0",
+  "language": "it",
+  "itineraries": [
+    {
+      "id": 1,
+      "date": "02 gennaio",
+      "title": "",
+      "subtitle": "",
+      "description": "",
+      "coverImage": "",
+      "dataFile": "data/day-1.json",
+      "enabled": true
+    },
+    {
+      "id": 2,
+      "date": "03 gennaio",
+      "title": "",
+      "subtitle": "",
+      "description": "",
+      "coverImage": "",
+      "dataFile": "data/day-2.json",
+      "enabled": true
+    },
+    {
+      "id": 3,
+      "date": "04 gennaio",
+      "title": "",
+      "subtitle": "",
+      "description": "",
+      "coverImage": "",
+      "dataFile": "data/day-3.json",
+      "enabled": true
+    },
+    {
+      "id": 4,
+      "date": "05 gennaio",
+      "title": "",
+      "subtitle": "",
+      "description": "",
+      "coverImage": "",
+      "dataFile": "data/day-4.json",
+      "enabled": true
+    }
+  ]
+}
