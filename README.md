@@ -35,7 +35,7 @@ Ogni file `data/day-N.json` contiene un array `pois`. Ogni elemento dell'array �
 | `audioLanguage` | stringa | Lingua della sintesi vocale, ad esempio `it-IT` |
 | `audioSpeed` | numero | Velocità della sintesi vocale; valore predefinito 1 |
 | `curiosities` | stringa | Sezione facoltativa dedicata alle curiosità |
-| `childrenCuriosity` | stringa | Sezione facoltativa “Curiosità per bambini” |\n| `childrenCuriosity` | stringa | Sezione facoltativa “Curiosità per bambini” |
+| `childrenCuriosity` | stringa | Sezione facoltativa “Curiosità per bambini” |
 | `childrenText` | stringa | Sezione facoltativa con contenuto per i più piccoli |
 | `visitDuration` | stringa | Durata indicativa della visita |
 | `notes` | stringa | Informazioni aggiuntive e note |
