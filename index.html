@@ -1,0 +1,123 @@
+
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#172b35">
+  <meta name="description" content="La tua guida turistica di Berlino">
+  <title>BERLIN – La città raccontata</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f4f1eb;
+      color: #24343b;
+    }
+    header {
+      background: #172b35;
+      color: white;
+      padding: 28px 20px;
+    }
+    header h1 { margin: 0; letter-spacing: 3px; }
+    header p { margin-bottom: 0; color: #d6e0df; }
+    main { padding: 18px; max-width: 720px; margin: auto; }
+    .intro, .stop {
+      background: white;
+      border-radius: 14px;
+      padding: 18px;
+      margin-bottom: 14px;
+      box-shadow: 0 2px 8px #0000000d;
+    }
+    .stop button {
+      background: #244d55;
+      color: white;
+      border: 0;
+      border-radius: 9px;
+      padding: 11px 16px;
+      cursor: pointer;
+    }
+    .tag { color: #9a7043; font-size: 13px; }
+    #story { line-height: 1.7; white-space: pre-line; }
+    footer { text-align: center; padding: 24px; color: #68777a; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>BERLIN</h1>
+    <p>La città raccontata · 2 gennaio 2027</p>
+  </header>
+  <main>
+    <section class="intro">
+      <h2>Benvenuti a Berlino!</h2>
+      <p>Una giornata tra storia, cortili segreti, mercati e la Spree.</p>
+      <p>Seleziona una tappa per iniziare ad esplorare.</p>
+    </section>
+    <div id="stops"></div>
+    <section class="intro" id="reader" hidden>
+      <div class="tag">LA TUA AUDIOGUIDA</div>
+      <h2 id="storyTitle"></h2>
+      <p id="story"></p>
+      <button onclick="speakStory()">Ascolta il racconto</button>
+      <button onclick="speechSynthesis.cancel()">Ferma</button>
+    </section>
+  </main>
+  <footer>BERLIN · La tua guida personale</footer>
+
+  <script>
+    const stops = [
+      "Gendarmenmarkt",
+      "Bebelplatz",
+      "Unter den Linden",
+      "Hackesche Höfe",
+      "Haus Schwarzenberg",
+      "Markthalle Neun",
+      "Boxhagener Platz",
+      "Oberbaumbrücke",
+      "Holzmarkt 25"
+    ];
+
+    const descriptions = {
+      "Gendarmenmarkt": "La piazza delle due comunità. Qui la storia degli ugonotti francesi, della comunità tedesca e della Prussia si incontra nell'architettura delle due chiese e della Konzerthaus.",
+      "Bebelplatz": "Il 10 maggio 1933 qui vennero bruciati migliaia di libri. Il memoriale della biblioteca vuota ricorda la censura e la persecuzione culturale del nazismo.",
+      "Unter den Linden": "Il grande viale dei tigli racconta la trasformazione di Berlino da residenza reale a capitale prussiana, imperiale e moderna.",
+      "Hackesche Höfe": "Otto cortili comunicanti raccontano la Berlino commerciale e residenziale del primo Novecento. Osserva le decorazioni Jugendstil.",
+      "Haus Schwarzenberg": "In questo edificio Otto Weidt cercò di proteggere i suoi lavoratori ebrei durante il nazismo. Oggi ospita un museo dedicato alla sua storia.",
+      "Markthalle Neun": "Inaugurato nel 1891, questo mercato coperto nacque per rifornire le famiglie operaie di Kreuzberg.",
+      "Boxhagener Platz": "Una piazza di quartiere che racconta la Berlino operaia e la trasformazione di Friedrichshain.",
+      "Oberbaumbrücke": "Un tempo confine tra Berlino Est e Ovest, oggi è uno dei simboli della città riunificata.",
+      "Holzmarkt 25": "Un progetto creativo nato dalla trasformazione della riva della Spree, tra cultura indipendente e rigenerazione urbana."
+    };
+
+    const container = document.getElementById("stops");
+
+    stops.forEach((name, index) => {
+      const section = document.createElement("section");
+      section.className = "stop";
+      const title = document.createElement("h3");
+      title.textContent = `${index + 1}. ${name}`;
+      const button = document.createElement("button");
+      button.textContent = "Scopri la storia";
+      button.onclick = () => showStory(name);
+      section.append(title, button);
+      container.append(section);
+    });
+
+    function showStory(name) {
+      document.getElementById("reader").hidden = false;
+      document.getElementById("storyTitle").textContent = name;
+      document.getElementById("story").textContent = descriptions[name];
+      speechSynthesis.cancel();
+      document.getElementById("reader").scrollIntoView({behavior:"smooth"});
+    }
+
+    function speakStory() {
+      const text = document.getElementById("story").textContent;
+      const speech = new SpeechSynthesisUtterance(text);
+      speech.lang = "it-IT";
+      speechSynthesis.speak(speech);
+    }
+  </script>
+</body>
+</html>
