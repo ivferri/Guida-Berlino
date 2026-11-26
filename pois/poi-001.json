@@ -1,0 +1,30 @@
+{
+  "id": "poi-001",
+  "name": "",
+  "category": "",
+  "shortDescription": "",
+  "lat": null,
+  "lng": null,
+  "image": "",
+  "description": {
+    "text": "",
+    "audioText": "",
+    "audioFile": ""
+  },
+  "curiosities": {
+    "text": "",
+    "audioText": "",
+    "audioFile": ""
+  },
+  "children": {
+    "text": "",
+    "audioText": "",
+    "audioFile": ""
+  },
+  "audioSettings": {
+    "language": "it-IT",
+    "speed": 0.9
+  },
+  "visitDuration": "",
+  "notes": ""
+}
