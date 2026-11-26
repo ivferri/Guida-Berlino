@@ -26,6 +26,12 @@
       <button type="button" class="secondary-button" onclick="showHome()">← Tutti gli itinerari</button>
       <h2 id="dayTitle"></h2>
       <p id="dayDescription"></p>
+      <section class="offline-panel">
+        <h3>Preparazione per l'uso offline</h3>
+        <p>Scarica i dati della giornata e tutte le audioguide disponibili prima di uscire. I testi e gli audio scaricati saranno consultabili senza connessione.</p>
+        <button type="button" id="downloadDayButton" onclick="downloadDayOffline()">⬇ Scarica contenuti per uso offline</button>
+        <p id="offlineStatus" aria-live="polite">Contenuti non ancora scaricati.</p>
+      </section>
       <h3>Mappa dell'itinerario</h3>
       <div id="map" role="application" aria-label="Mappa dell'itinerario"></div>
       <div class="gps-controls">
@@ -40,9 +46,6 @@
       <button type="button" class="secondary-button" onclick="backToDay()">← Torna all'itinerario</button>
       <h2 id="poiTitle"></h2>
       <p id="poiCategory" class="poi-category" hidden></p>
-      <figure id="poiImageSection" class="poi-image-section" hidden>
-        <img id="poiImage" alt="">
-      </figure>
       <p id="poiDescription" class="poi-description" hidden></p>
       <p id="poiVisitDuration" class="poi-meta" hidden></p>
       <section id="poiCuriositiesSection" class="poi-info-section" hidden>
