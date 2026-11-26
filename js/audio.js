@@ -38,18 +38,28 @@ const BerlinAudio = {
     } else if (this.currentMode === 'file') this.resumeFile();
   },
   async playFile(file) {
-    if (!file) {
+    if (typeof file !== 'string' || !file.trim()) {
       this.updateStatus('Registrazione non disponibile');
       return;
     }
     this.stop();
     this.currentMode = 'file';
+    this.player.onended = () => {
+      this.currentMode = null;
+      this.updateStatus('Riproduzione completata');
+    };
+    this.player.onerror = () => {
+      this.currentMode = null;
+      this.updateStatus('File audio non disponibile');
+    };
     this.player.src = file;
     this.player.load();
+    this.updateStatus('Caricamento registrazione...');
     try {
       await this.player.play();
-      this.updateStatus('Riproduzione audio in corso');
+      if (this.currentMode === 'file') this.updateStatus('Riproduzione audio in corso');
     } catch (error) {
+      this.currentMode = null;
       this.updateStatus('Impossibile riprodurre il file');
       console.error(error);
     }
@@ -66,6 +76,8 @@ const BerlinAudio = {
   },
   stop() {
     if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+    this.player.onended = null;
+    this.player.onerror = null;
     this.player.pause();
     this.player.removeAttribute('src');
     this.player.load();
