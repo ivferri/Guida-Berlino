@@ -74,14 +74,21 @@ function renderPOIs() {
     container.innerHTML = '<p class="empty-state">Le tappe di questa giornata verranno aggiunte prossimamente.</p>';
     return;
   }
-  container.innerHTML = currentPOIs.map((poi, index) =>
-    '<article class="day-card poi-card">' +
-      '<span class="day-date">TAPPA ' + (index + 1) + '</span>' +
-      '<span class="day-card-title">' + escapeHTML(poi.name || ('Tappa ' + (index + 1))) + '</span>' +
-      '<span class="day-card-description">' + escapeHTML(poi.shortDescription || '') + '</span>' +
-      '<button type="button" onclick="openPOI(' + index + ')">Scopri questa tappa →</button>' +
-    '</article>'
-  ).join('');
+  let previousArea = '';
+  container.innerHTML = currentPOIs.map((poi, index) => {
+    const area = typeof poi.area === 'string' ? poi.area.trim() : '';
+    const heading = area && area !== previousArea
+      ? '<h3 class="poi-area-heading">' + escapeHTML(area) + '</h3>'
+      : '';
+    previousArea = area;
+    return heading +
+      '<article class="day-card poi-card">' +
+        '<span class="day-date">TAPPA ' + (index + 1) + '</span>' +
+        '<span class="day-card-title">' + escapeHTML(poi.name || ('Tappa ' + (index + 1))) + '</span>' +
+        '<span class="day-card-description">' + escapeHTML(poi.category || '') + '</span>' +
+        '<button type="button" onclick="openPOI(' + index + ')">Apri scheda →</button>' +
+      '</article>';
+  }).join('');
 }
 
 function openPOI(index) {
