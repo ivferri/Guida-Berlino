@@ -63,3 +63,15 @@ footer { text-align: center; padding: 25px; color: var(--muted); font-size: 13px
 }
 .poi-info-section h3 { margin-top: 0; }
 .poi-info-section p { margin-bottom: 0; white-space: pre-line; }
+
+
+/* Intestazioni dei gruppi geografici nella lista delle tappe */
+.poi-area-heading {
+  margin: 1.6rem 0 0.65rem;
+  padding-bottom: 0.45rem;
+  color: var(--navy, #1d2c43);
+  border-bottom: 1px solid rgba(181, 138, 82, 0.55);
+  font-family: inherit;
+  font-size: 1.05rem;
+  letter-spacing: 0.04em;
+}

@@ -61,3 +61,7 @@ La sintesi vocale del telefono resta disponibile quando supportata dal browser, 
 ## Pubblicazione e aggiornamenti
 
 Il progetto è pubblicato con GitHub Pages dalla cartella principale del repository. Quando si modificano HTML, CSS, JavaScript o la strategia di cache, incrementare la versione \`CACHE_NAME\` in \`service-worker.js\`: il nuovo Service Worker scarica il guscio aggiornato dell'app e rimuove la vecchia cache. I JSON vengono aggiornati dalla rete quando disponibile e mantenuti in cache per l'uso offline.
+
+### Raggruppamento geografico dei POI
+
+Ogni POI può includere il campo `area` (ad esempio `Mitte – Centro storico` o `Friedrichshain`). L'app usa questo valore per mostrare intestazioni di gruppo nella lista delle tappe. Le schede possono rimanere vuote: nome, categoria e coordinate sono sufficienti per predisporre l'itinerario prima di aggiungere descrizioni, curiosità e audio.
