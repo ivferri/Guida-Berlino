@@ -1,5 +1,7 @@
 let map = null;
 let poiMarkers = [];
+let treasureMarkerLayer = null;
+let treasureMarkersVisible = true;
 let userMarker = null;
 let gpsCircle = null;
 let gpsWatchId = null;
@@ -17,12 +19,14 @@ function initializeMap(pois = [], mapSettings = {}) {
 
   if (!map) {
     map = L.map('map').setView(center, Number.isFinite(zoom) ? zoom : 13);
+    treasureMarkerLayer = L.layerGroup().addTo(map);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '&copy; OpenStreetMap contributors', maxZoom: 19
     }).addTo(map);
   }
   poiMarkers.forEach(marker => map.removeLayer(marker));
   poiMarkers = [];
+  if (treasureMarkerLayer) treasureMarkerLayer.clearLayers();
   const validPOIs = [];
   (Array.isArray(pois) ? pois : []).forEach((poi, poiIndex) => {
     const lat = Number(poi.lat);
@@ -50,6 +54,8 @@ function initializeMap(pois = [], mapSettings = {}) {
   } else {
     map.setView(center, Number.isFinite(zoom) ? zoom : 13);
   }
+  const treasureToggle = document.getElementById('showTreasureMarkers');
+  if (treasureToggle) treasureToggle.checked = treasureMarkersVisible;
   refreshMapSize();
 }
 
@@ -108,4 +114,30 @@ function stopGPS(updateStatus = true) {
 function updateGPSStatus(message) {
   const element = document.getElementById('gpsStatus');
   if (element) element.textContent = message;
+}
+
+
+function setTreasureChallengesOnMap(challenges = []) {
+  if (!map || !treasureMarkerLayer || typeof L === 'undefined') return;
+  treasureMarkerLayer.clearLayers();
+  (Array.isArray(challenges) ? challenges : []).forEach(challenge => {
+    const lat = Number(challenge.lat);
+    const lng = Number(challenge.lng);
+    const valid = challenge.lat !== null && challenge.lat !== '' && challenge.lng !== null && challenge.lng !== '' &&
+      Number.isFinite(lat) && Number.isFinite(lng) && lat >= -90 && lat <= 90 && lng >= -180 && lng <= 180;
+    if (!valid) return;
+    const icon = L.divIcon({ className: 'treasure-map-icon-wrap', html: '<span class="treasure-map-icon">?</span>', iconSize: [32, 32], iconAnchor: [16, 16] });
+    const marker = L.marker([lat, lng], { icon });
+    marker.bindTooltip(escapeHTML(challenge.title || 'Prova della caccia'));
+    marker.on('click', () => { if (typeof openTreasureChallenge === 'function') openTreasureChallenge(challenge.id); });
+    treasureMarkerLayer.addLayer(marker);
+  });
+  setTreasureMarkersVisible(treasureMarkersVisible);
+}
+
+function setTreasureMarkersVisible(visible) {
+  treasureMarkersVisible = Boolean(visible);
+  if (!map || !treasureMarkerLayer) return;
+  if (treasureMarkersVisible && !map.hasLayer(treasureMarkerLayer)) treasureMarkerLayer.addTo(map);
+  if (!treasureMarkersVisible && map.hasLayer(treasureMarkerLayer)) map.removeLayer(treasureMarkerLayer);
 }
