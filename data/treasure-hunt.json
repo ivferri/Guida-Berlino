@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "description": "Struttura iniziale della caccia al tesoro. Le sfide recuperate dalle conversazioni sono bozze da confermare; i punteggi non sono ancora assegnati.",
+  "description": "Caccia al tesoro a checklist: le sfide si completano spuntando la casella, senza punteggi.",
   "days": [
     {
       "dayId": 1,
@@ -12,7 +12,6 @@
           "title": "Occhio ai dettagli",
           "area": "Boxhagener Kiez",
           "task": "Trova un dettaglio architettonico curioso.",
-          "points": null,
           "poiId": null
         },
         {
@@ -20,7 +19,6 @@
           "title": "Un'insegna speciale",
           "area": "Boxhagener Kiez",
           "task": "Individua un'insegna particolarmente curiosa.",
-          "points": null,
           "poiId": null
         },
         {
@@ -28,7 +26,6 @@
           "title": "L'edificio misterioso",
           "area": "Boxhagener Kiez",
           "task": "Trova un edificio che ti sembra misterioso o insolito.",
-          "points": null,
           "poiId": null
         },
         {
@@ -36,7 +33,6 @@
           "title": "Il guardiano delle stelle",
           "area": "Caroline-Herschel-Platz · Sternenwächter",
           "task": "Osserva la scultura del Guardiano delle stelle e prova a capire che cosa protegge.",
-          "points": null,
           "poiId": null
         },
         {
@@ -44,7 +40,6 @@
           "title": "Un luogo nascosto",
           "area": "Boxhagener Kiez",
           "task": "Cerca un luogo interessante che non si vede subito dalla strada.",
-          "points": null,
           "poiId": null
         },
         {
@@ -52,7 +47,6 @@
           "title": "Un disegno fuori dal comune",
           "area": "Boxhagener Kiez",
           "task": "Trova un murale o un disegno davvero strano.",
-          "points": null,
           "poiId": null
         },
         {
@@ -60,7 +54,6 @@
           "title": "Una lingua diversa",
           "area": "Boxhagener Kiez",
           "task": "Trova un'insegna scritta in una lingua diversa dal tedesco.",
-          "points": null,
           "poiId": null
         },
         {
@@ -68,7 +61,6 @@
           "title": "Il portone decorato",
           "area": "Boxhagener Kiez",
           "task": "Individua un portone con decorazioni particolari.",
-          "points": null,
           "poiId": null
         },
         {
@@ -76,7 +68,6 @@
           "title": "La bicicletta insolita",
           "area": "Boxhagener Kiez",
           "task": "Trova una bicicletta insolita o personalizzata.",
-          "points": null,
           "poiId": null
         },
         {
@@ -84,7 +75,6 @@
           "title": "Un personaggio nascosto",
           "area": "Boxhagener Kiez",
           "task": "Cerca un animale, un volto, un personaggio fantastico o un piccolo graffito.",
-          "points": null,
           "poiId": null
         },
         {
@@ -92,7 +82,6 @@
           "title": "Il murale più grande e strano",
           "area": "RAW-Gelände / Urban Spree",
           "task": "Scegli il murale più grande e quello più strano che riesci a trovare.",
-          "points": null,
           "poiId": "raw-gelaende"
         },
         {
@@ -100,7 +89,6 @@
           "title": "Tracce della ferrovia",
           "area": "RAW-Gelände",
           "task": "Individua un elemento che ricordi il passato ferroviario dell'area.",
-          "points": null,
           "poiId": "raw-gelaende"
         },
         {
@@ -108,7 +96,6 @@
           "title": "Una seconda vita",
           "area": "RAW-Gelände / Urban Spree",
           "task": "Trova un esempio di materiale recuperato o riutilizzato.",
-          "points": null,
           "poiId": "raw-gelaende"
         },
         {
@@ -116,7 +103,6 @@
           "title": "La Teledisko",
           "area": "Friedrichshain",
           "task": "Individua una Teledisko.",
-          "points": null,
           "poiId": null
         }
       ]
@@ -131,7 +117,6 @@
           "title": "A caccia di una Trabant",
           "area": "Giornata DDR / Muro",
           "task": "Trova una Trabant.",
-          "points": null,
           "poiId": null
         },
         {
@@ -139,7 +124,6 @@
           "title": "Un oggetto della DDR",
           "area": "Giornata DDR",
           "task": "Individua un oggetto della vita quotidiana legato alla Germania Est.",
-          "points": null,
           "poiId": null
         },
         {
@@ -147,7 +131,6 @@
           "title": "Una traccia del Muro",
           "area": "Memoriale del Muro",
           "task": "Trova una traccia che racconti dove passava il Muro.",
-          "points": null,
           "poiId": null
         },
         {
@@ -155,7 +138,6 @@
           "title": "Il terreno racconta",
           "area": "Memoriale del Muro",
           "task": "Osserva come cambia il terreno o la pavimentazione lungo il percorso del Muro.",
-          "points": null,
           "poiId": null
         },
         {
@@ -163,7 +145,6 @@
           "title": "Un dettaglio industriale",
           "area": "Kulturbrauerei",
           "task": "Trova un dettaglio architettonico che ricordi il passato industriale della Kulturbrauerei.",
-          "points": null,
           "poiId": null
         }
       ]
