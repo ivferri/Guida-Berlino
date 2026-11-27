@@ -65,3 +65,7 @@ Il progetto è pubblicato con GitHub Pages dalla cartella principale del reposit
 ### Raggruppamento geografico dei POI
 
 Ogni POI può includere il campo `area` (ad esempio `Mitte – Centro storico` o `Friedrichshain`). L'app usa questo valore per mostrare intestazioni di gruppo nella lista delle tappe. Le schede possono rimanere vuote: nome, categoria e coordinate sono sufficienti per predisporre l'itinerario prima di aggiungere descrizioni, curiosità e audio.
+
+### Mappa senza percorso predefinito
+
+La mappa mostra i segnaposto dei POI senza numerazione e senza tracciare una linea di itinerario. Selezionando un segnaposto si apre direttamente la scheda del relativo POI. L'ordine della lista non impone un percorso di visita.

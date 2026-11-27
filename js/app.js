@@ -83,8 +83,7 @@ function renderPOIs() {
     previousArea = area;
     return heading +
       '<article class="day-card poi-card">' +
-        '<span class="day-date">TAPPA ' + (index + 1) + '</span>' +
-        '<span class="day-card-title">' + escapeHTML(poi.name || ('Tappa ' + (index + 1))) + '</span>' +
+        '<span class="day-card-title">' + escapeHTML(poi.name || 'Luogo') + '</span>' +
         '<span class="day-card-description">' + escapeHTML(poi.category || '') + '</span>' +
         '<button type="button" onclick="openPOI(' + index + ')">Apri scheda →</button>' +
       '</article>';
