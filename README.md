@@ -76,5 +76,5 @@ La mappa mostra i segnaposto dei POI senza numerazione e senza tracciare una lin
 - Le missioni sono definite in `data/treasure-hunt.json`; la logica dell'interfaccia è in `js/treasure-hunt.js`.
 - I progressi delle sfide completate vengono salvati sul dispositivo tramite `localStorage`, senza richiedere un account o una connessione.
 - Le sfide possono collegarsi a un POI tramite il suo identificativo `poiId`; il collegamento compare solo se quel POI è presente nella giornata.
-- I punteggi non assegnati restano `null` e vengono mostrati come “Punteggio da definire”. Non vengono calcolati punti o premi finché i valori non sono concordati.
+- Le sfide sono una semplice checklist: si spuntano quando completate. Non esistono punti, classifiche, premi o penalità.
 - Per aggiornare la cache dell'app, incrementare `CACHE_NAME` in `service-worker.js` e includere i nuovi file in `APP_FILES`.

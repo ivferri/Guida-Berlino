@@ -56,15 +56,13 @@ async function renderTreasureHunt(dayId) {
       const placeButton = poiIndex >= 0
         ? '<button type="button" class="secondary-button treasure-place-button" onclick="openPOI(' + poiIndex + ')">Apri luogo collegato</button>'
         : '';
-      const pointsText = Number.isFinite(challenge.points) ? challenge.points + ' punti' : 'Punteggio da definire';
       return '<article class="treasure-card' + (isComplete ? ' is-complete' : '') + '">' +
-        '<div class="treasure-card-top"><h4>' + escapeHTML(challenge.title || 'Sfida') + '</h4>' +
-        '<span class="treasure-points">' + escapeHTML(pointsText) + '</span></div>' +
+        '<div class="treasure-card-top"><h4>' + escapeHTML(challenge.title || 'Sfida') + '</h4></div>' +
         (challenge.area ? '<p class="treasure-area">' + escapeHTML(challenge.area) + '</p>' : '') +
         '<p class="treasure-task">' + escapeHTML(challenge.task || '') + '</p>' +
         '<div class="treasure-card-actions">' + placeButton +
-        '<button type="button" class="' + (isComplete ? 'secondary-button' : '') + '" onclick="toggleTreasureChallenge(\'' + escapeHTML(challenge.id) + '\')">' +
-        (isComplete ? '✓ Completata · Annulla' : 'Segna come completata') + '</button></div></article>';
+        '<label class="treasure-check"><input type="checkbox" ' + (isComplete ? 'checked ' : '') +
+        'onchange="toggleTreasureChallenge(\\'' + escapeHTML(challenge.id) + '\\')"> <span>Completata</span></label></div></article>';
     }).join('');
     panel.hidden = false;
   } catch (error) {
