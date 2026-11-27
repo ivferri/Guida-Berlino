@@ -1,6 +1,5 @@
 let map = null;
 let poiMarkers = [];
-let routeLine = null;
 let userMarker = null;
 let gpsCircle = null;
 let gpsWatchId = null;
@@ -24,34 +23,30 @@ function initializeMap(pois = [], mapSettings = {}) {
   }
   poiMarkers.forEach(marker => map.removeLayer(marker));
   poiMarkers = [];
-  if (routeLine) {
-    map.removeLayer(routeLine);
-    routeLine = null;
-  }
-
-  const validPOIs = (Array.isArray(pois) ? pois : []).filter(poi => {
+  const validPOIs = [];
+  (Array.isArray(pois) ? pois : []).forEach((poi, poiIndex) => {
     const lat = Number(poi.lat);
     const lng = Number(poi.lng);
-    return poi.lat !== null && poi.lat !== '' && poi.lng !== null && poi.lng !== '' &&
+    const hasCoordinates = poi.lat !== null && poi.lat !== '' &&
+      poi.lng !== null && poi.lng !== '' &&
       Number.isFinite(lat) && Number.isFinite(lng) &&
       lat >= -90 && lat <= 90 && lng >= -180 && lng <= 180;
-  });
+    if (!hasCoordinates) return;
 
-  validPOIs.forEach((poi, index) => {
-    const marker = L.marker([Number(poi.lat), Number(poi.lng)])
-      .addTo(map)
-      .bindPopup(`<strong>${escapeHTML(poi.name || `Tappa ${index + 1}`)}</strong><br>Tappa ${index + 1}`);
+    validPOIs.push([lat, lng]);
+    const marker = L.marker([lat, lng]).addTo(map);
+    marker.bindTooltip(escapeHTML(poi.name || 'Apri scheda'));
+    marker.on('click', () => {
+      if (typeof openPOI === 'function') openPOI(poiIndex);
+    });
     poiMarkers.push(marker);
   });
 
   if (validPOIs.length > 1) {
-    const coordinates = validPOIs.map(poi => [Number(poi.lat), Number(poi.lng)]);
-    routeLine = L.polyline(coordinates, {
-      color: '#b58a52', weight: 4, opacity: 0.85
-    }).addTo(map);
-    map.fitBounds(routeLine.getBounds(), { padding: [30, 30], maxZoom: 16 });
+    const markerBounds = L.latLngBounds(validPOIs);
+    map.fitBounds(markerBounds, { padding: [30, 30], maxZoom: 16 });
   } else if (validPOIs.length === 1) {
-    map.setView([Number(validPOIs[0].lat), Number(validPOIs[0].lng)], 15);
+    map.setView(validPOIs[0], 15);
   } else {
     map.setView(center, Number.isFinite(zoom) ? zoom : 13);
   }
