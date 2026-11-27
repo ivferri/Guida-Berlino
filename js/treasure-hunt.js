@@ -56,7 +56,7 @@ async function renderTreasureHunt(dayId) {
       const placeButton = poiIndex >= 0
         ? '<button type="button" class="secondary-button treasure-place-button" onclick="openPOI(' + poiIndex + ')">Apri luogo collegato</button>'
         : '';
-      return '<article class="treasure-card' + (isComplete ? ' is-complete' : '') + '">' +
+      return '<article id="treasure-challenge-' + escapeHTML(challenge.id) + '" class="treasure-card' + (isComplete ? ' is-complete' : '') + '">' +
         '<div class="treasure-card-top"><h4>' + escapeHTML(challenge.title || 'Sfida') + '</h4></div>' +
         (challenge.area ? '<p class="treasure-area">' + escapeHTML(challenge.area) + '</p>' : '') +
         '<p class="treasure-task">' + escapeHTML(challenge.task || '') + '</p>' +
@@ -91,4 +91,30 @@ function toggleTreasureChallenge(challengeId) {
   progress[challengeId] = progress[challengeId] !== true;
   if (!saveTreasureProgress(progress)) alert('Non è stato possibile salvare il progresso su questo dispositivo.');
   if (currentDay) renderTreasureHunt(currentDay.id);
+}
+
+
+async function loadTreasureMarkersForDay(dayId) {
+  try {
+    const data = await loadTreasureHuntData();
+    const day = (data.days || []).find(item => Number(item.dayId) === Number(dayId));
+    if (typeof setTreasureChallengesOnMap === 'function') setTreasureChallengesOnMap(day && Array.isArray(day.challenges) ? day.challenges : []);
+  } catch (error) {
+    console.warn('Marker della caccia al tesoro non caricati:', error);
+    if (typeof setTreasureChallengesOnMap === 'function') setTreasureChallengesOnMap([]);
+  }
+}
+
+async function openTreasureChallenge(challengeId) {
+  if (!currentDay || !challengeId) return;
+  const panel = document.getElementById('treasureHuntPanel');
+  if (!panel) return;
+  panel.hidden = false;
+  await renderTreasureHunt(currentDay.id);
+  const card = document.getElementById('treasure-challenge-' + challengeId);
+  if (card) {
+    card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    card.classList.add('treasure-card-highlight');
+    window.setTimeout(() => card.classList.remove('treasure-card-highlight'), 1800);
+  }
 }

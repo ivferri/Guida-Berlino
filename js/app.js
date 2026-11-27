@@ -63,6 +63,7 @@ async function openDay(id) {
     const treasurePanel = document.getElementById('treasureHuntPanel');
     if (treasurePanel) treasurePanel.hidden = true;
     if (typeof initializeMap === 'function') initializeMap(currentPOIs, data.map || {});
+    if (typeof loadTreasureMarkersForDay === 'function') loadTreasureMarkersForDay(day.id);
     window.scrollTo(0, 0);
   } catch (error) {
     console.error('Errore apertura itinerario:', error);
