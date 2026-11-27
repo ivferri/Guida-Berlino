@@ -1,4 +1,4 @@
-const CACHE_NAME = 'berlin-guida-v2-7';
+const CACHE_NAME = 'berlin-guida-v2-8';
 const APP_FILES = [
   './', './index.html', './manifest.json', './icon.svg', './css/style.css',
   './js/app.js', './js/map.js', './js/audio.js', './js/navigation.js',
