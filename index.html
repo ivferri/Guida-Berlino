@@ -44,6 +44,8 @@
         <button type="button" class="secondary-button" onclick="toggleTreasureHunt()">Chiudi la caccia</button>
       </section>
       <h3>Mappa dell'itinerario</h3>
+      <label class="map-layer-toggle"><input type="checkbox" id="showTreasureMarkers" checked onchange="setTreasureMarkersVisible(this.checked)"> <span>Mostra prove della caccia al tesoro</span></label>
+      <div class="map-legend"><span class="map-legend-poi"></span> POI itinerario <span class="map-legend-treasure">?</span> Prove caccia al tesoro</div>
       <div id="map" role="application" aria-label="Mappa dell'itinerario"></div>
       <div class="gps-controls">
         <button type="button" onclick="startGPS()">📍 Attiva GPS</button>
