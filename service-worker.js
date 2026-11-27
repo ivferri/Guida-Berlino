@@ -1,4 +1,4 @@
-const CACHE_NAME = 'berlin-guida-v2-8';
+const CACHE_NAME = 'berlin-guida-v2-9';
 const APP_FILES = [
   './', './index.html', './manifest.json', './icon.svg', './css/style.css',
   './js/app.js', './js/map.js', './js/audio.js', './js/navigation.js',
@@ -91,12 +91,25 @@ self.addEventListener('fetch', event => {
       }
     }
 
-    // App shell and downloaded media are cache-first for reliable offline use.
-    const cached = await cache.match(request);
-    if (cached) return cached;
-    const response = await fetch(request);
-    if (response.ok) await cache.put(request, response.clone());
-    return response;
+    // Downloaded audio stays cache-first; app shell files are network-first
+    // so an installed PWA receives fixes as soon as it is opened online.
+    const isAudio = /\\.(mp3|m4a|ogg|wav)$/i.test(requestUrl.pathname);
+    if (isAudio) {
+      const cachedAudio = await cache.match(request);
+      if (cachedAudio) return cachedAudio;
+    }
+    try {
+      const response = await fetch(request, { cache: 'no-store' });
+      if (response.ok) await cache.put(request, response.clone());
+      return response;
+    } catch (error) {
+      const cached = await cache.match(request);
+      if (cached) return cached;
+      return new Response('Contenuto non disponibile offline.', {
+        status: 503,
+        headers: { 'Content-Type': 'text/plain; charset=utf-8' }
+      });
+    }
   })());
 });
 
