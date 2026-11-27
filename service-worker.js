@@ -1,8 +1,8 @@
-const CACHE_NAME = 'berlin-guida-v2-9';
+const CACHE_NAME = 'berlin-guida-v2-10';
 const APP_FILES = [
   './', './index.html', './manifest.json', './icon.svg', './css/style.css',
-  './js/app.js', './js/map.js', './js/audio.js', './js/navigation.js',
-  './data/itineraries.json', './data/day-1.json', './data/day-2.json',
+  './js/app.js', './js/treasure-hunt.js', './js/map.js', './js/audio.js', './js/navigation.js',
+  './data/itineraries.json', './data/treasure-hunt.json', './data/day-1.json', './data/day-2.json',
   './data/day-3.json', './data/day-4.json', './pois/poi-001.json',
   './pois/poi-template.json'
 ];
