@@ -60,6 +60,8 @@ async function openDay(id) {
     document.getElementById('gpsStatus').textContent = 'GPS non attivo';
     document.getElementById('offlineStatus').textContent = 'Scarica testi e audioguide per consultarli senza connessione.';
     renderPOIs();
+    const treasurePanel = document.getElementById('treasureHuntPanel');
+    if (treasurePanel) treasurePanel.hidden = true;
     if (typeof initializeMap === 'function') initializeMap(currentPOIs, data.map || {});
     window.scrollTo(0, 0);
   } catch (error) {
