@@ -69,3 +69,12 @@ Ogni POI può includere il campo `area` (ad esempio `Mitte – Centro storico` o
 ### Mappa senza percorso predefinito
 
 La mappa mostra i segnaposto dei POI senza numerazione e senza tracciare una linea di itinerario. Selezionando un segnaposto si apre direttamente la scheda del relativo POI. L'ordine della lista non impone un percorso di visita.
+
+## Caccia al tesoro
+
+- La sezione **Caccia al tesoro** è facoltativa e separata da mappa e itinerario: non impone un ordine di visita e non aggiunge numeri o linee alla cartografia.
+- Le missioni sono definite in `data/treasure-hunt.json`; la logica dell'interfaccia è in `js/treasure-hunt.js`.
+- I progressi delle sfide completate vengono salvati sul dispositivo tramite `localStorage`, senza richiedere un account o una connessione.
+- Le sfide possono collegarsi a un POI tramite il suo identificativo `poiId`; il collegamento compare solo se quel POI è presente nella giornata.
+- I punteggi non assegnati restano `null` e vengono mostrati come “Punteggio da definire”. Non vengono calcolati punti o premi finché i valori non sono concordati.
+- Per aggiornare la cache dell'app, incrementare `CACHE_NAME` in `service-worker.js` e includere i nuovi file in `APP_FILES`.
