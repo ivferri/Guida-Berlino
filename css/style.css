@@ -100,3 +100,13 @@ footer { text-align: center; padding: 25px; color: var(--muted); font-size: 13px
 .treasure-check { display: inline-flex; align-items: center; gap: 9px; min-height: 42px; padding: 5px 0; color: var(--navy); font-weight: 600; cursor: pointer; }
 .treasure-check input { width: 22px; height: 22px; accent-color: #527b61; cursor: pointer; }
 .treasure-card.is-complete h4 { text-decoration: line-through; text-decoration-color: #7d9a83; }
+
+
+.map-layer-toggle { display:flex; align-items:center; gap:9px; margin:0 0 8px; color:var(--navy); font-size:14px; font-weight:600; cursor:pointer; }
+.map-layer-toggle input { width:19px; height:19px; accent-color:var(--gold); }
+.map-legend { display:flex; align-items:center; flex-wrap:wrap; gap:7px; margin:0 0 10px; color:var(--muted); font-size:12px; }
+.map-legend-poi { width:11px; height:11px; border-radius:50%; background:#2f6680; border:2px solid #fff; box-shadow:0 0 0 1px #2f6680; }
+.map-legend-treasure { display:inline-flex; align-items:center; justify-content:center; width:19px; height:19px; border-radius:50%; background:var(--gold); color:#fff; font-weight:bold; }
+.treasure-map-icon-wrap { background:transparent; border:0; }
+.treasure-map-icon { display:flex; align-items:center; justify-content:center; width:32px; height:32px; border:2px solid #fff; border-radius:50%; background:var(--gold); color:#fff; font-size:20px; font-weight:800; box-shadow:0 2px 7px #0005; }
+.treasure-card-highlight { outline:3px solid var(--gold); outline-offset:2px; }
